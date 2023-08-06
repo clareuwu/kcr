@@ -8,12 +8,13 @@ pub enum Op {
 
 pub struct Bytecode {
     pub code: Vec<Op>,
-    pub constants: Vec<Value>
+    pub constants: Vec<Value>,
+    pub lines: Vec<usize>,
 }
 
 impl Bytecode {
     pub fn new() -> Self {
-        Bytecode { code: Vec::new(), constants: Vec::new() }
+        Bytecode { code: Vec::new(), constants: Vec::new(), lines: Vec::new(), }
     }
 
     pub fn disassemble(&self) {
@@ -25,8 +26,9 @@ impl Bytecode {
         }
     }
 
-    pub fn push_code(&mut self, val: Op) {
+    pub fn push_code(&mut self, val: Op, line: usize) {
         self.code.push(val);
+        self.lines.push(line);
     }
 
     pub fn push_constant(&mut self, val: Value) -> usize {
