@@ -1,6 +1,7 @@
 mod bytecode;
 use bytecode::*;
 mod value;
+mod vm;
 
 fn main() {
     let mut bc = Bytecode::new();
