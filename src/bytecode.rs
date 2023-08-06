@@ -18,10 +18,10 @@ impl Bytecode {
     }
 
     pub fn disassemble(&self) {
-        for op in &self.code {
+        for (i, op) in self.code.iter().enumerate() {
             match op {
-                Op::Constant(idx) => println!("constant, index: {}", idx),
-                _ => println!("{:?}", op)
+                Op::Constant(idx) => println!("{} - constant, index: {}", self.lines[i], idx),
+                _ => println!("{} - {:?}", self.lines[i], op)
             }
         }
     }
