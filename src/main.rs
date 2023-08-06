@@ -12,7 +12,7 @@ fn main() {
     bc.push_code(Op::Return);
     bc.push_code(Op::Return);
     bc.disassemble();
-    bc.push_constant(value::Value::Number(5.));
-    bc.push_constant(value::Value::Number(9.));
-    println!("{:?}", &bc.constants.last());
+    let cidx = bc.push_constant(value::Value::Number(5.));
+    bc.push_code(Op::Constant(cidx));
+    bc.disassemble();
 }

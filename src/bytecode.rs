@@ -3,22 +3,7 @@ use crate::value::*;
 #[derive(Debug)]
 pub enum Op {
     Return,
-}
-
-pub struct Function {
-    pub arity: u8,
-    pub bc: Bytecode,
-    pub name: String,
-}
-
-pub struct Closure {
-    pub function: Function,
-}
-
-pub enum Constant {
-    Number(f64),
-    String(String),
-    Function(Closure),
+    Constant(usize),
 }
 
 pub struct Bytecode {
@@ -33,7 +18,10 @@ impl Bytecode {
 
     pub fn disassemble(&self) {
         for op in &self.code {
-            println!("{:?}", op);
+            match op {
+                Op::Constant(idx) => println!("constant, index: {}", idx),
+                _ => println!("{:?}", op)
+            }
         }
     }
 
@@ -41,7 +29,9 @@ impl Bytecode {
         self.code.push(val);
     }
 
-    pub fn push_constant(&mut self, val: Value) {
+    pub fn push_constant(&mut self, val: Value) -> usize {
+        let idx = self.constants.len();
         self.constants.push(val);
+        idx
     }
 }
