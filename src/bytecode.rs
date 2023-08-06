@@ -1,3 +1,5 @@
+use crate::value::*;
+
 #[derive(Debug)]
 pub enum Op {
     Return,
@@ -21,7 +23,7 @@ pub enum Constant {
 
 pub struct Bytecode {
     pub code: Vec<Op>,
-    pub constants: Vec<Constant>
+    pub constants: Vec<Value>
 }
 
 impl Bytecode {
@@ -29,7 +31,17 @@ impl Bytecode {
         Bytecode { code: Vec::new(), constants: Vec::new() }
     }
 
-    pub fn write_code(&mut self, val: Op) {
+    pub fn disassemble(&self) {
+        for op in &self.code {
+            println!("{:?}", op);
+        }
+    }
+
+    pub fn push_code(&mut self, val: Op) {
         self.code.push(val);
+    }
+
+    pub fn push_constant(&mut self, val: Value) {
+        self.constants.push(val);
     }
 }
